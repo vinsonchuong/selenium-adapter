@@ -1,5 +1,5 @@
 import test from 'ava';
-import seleniumAdapter from '../src/index';
+import seleniumAdapter from 'selenium-adapter';
 
 test((t) => {
   t.is(seleniumAdapter(), 'Hello World!');
