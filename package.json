@@ -7,27 +7,24 @@
   "bugs": "https://github.com/vinsonchuong/selenium-adapter/issues",
   "license": "MIT",
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
-  "files": [
-    "LICENSE",
-    "README.md",
-    "src"
-  ],
-  "main": "src/index.js",
+  "main": "index.js",
   "bin": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/vinsonchuong/selenium-adapter"
   },
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "build": "bin/build"
   },
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.16.0",
+    "babel-cli": "^6.18.0",
     "babel-plugin-module-resolver": "^2.2.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-latest": "^6.16.0",
-    "babel-runtime": "^6.11.6"
+    "babel-runtime": "^6.18.0"
   },
   "ava": {
     "babel": "inherit",
@@ -41,12 +38,18 @@
     ],
     "plugins": [
       "transform-runtime",
-      ["module-resolver", {
-        "root": ["./src", "./test"],
-        "alias": {
-          "selenium-adapter": "./src"
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src",
+            "./test"
+          ],
+          "alias": {
+            "selenium-adapter": "./src"
+          }
         }
-      }]
+      ]
     ]
   }
 }

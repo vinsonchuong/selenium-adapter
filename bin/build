@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+# set -o xtrace
+set -o pipefail
+
+rm -rf dist
+babel --out-dir dist src
+cp --verbose --target-directory dist LICENSE README.md package.json
