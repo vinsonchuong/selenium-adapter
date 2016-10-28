@@ -2,7 +2,11 @@
   "name": "selenium-adapter",
   "version": "0.0.1",
   "description": "A promise adapter for Selenium WebDriver for use with ES2017 async/await",
-  "keywords": [],
+  "keywords": [
+    "selenium",
+    "chrome",
+    "firefox"
+  ],
   "homepage": "https://github.com/vinsonchuong/selenium-adapter",
   "bugs": "https://github.com/vinsonchuong/selenium-adapter/issues",
   "license": "MIT",
