@@ -1,19 +1,20 @@
 import test from 'ava';
-import {sleep} from 'esnext-async';
 import Browser from 'selenium-adapter';
 
-const browser = new Browser('firefox');
+test('opens different browsers', async (t) => {
+  async function assertUserAgent(browser, regex) {
+    t.regex(await browser.evaluate('return window.navigator.userAgent'), regex);
+  }
 
-test(async (t) => {
-  await browser.open('http://www.google.com/ncr');
+  const chrome = new Browser('chrome');
+  await assertUserAgent(chrome, /Chrome/);
+  await chrome.exit();
 
-  const searchBox = await browser.find('[name="q"]');
-  await searchBox.fillIn('webdriver');
+  const firefox = new Browser('firefox');
+  await assertUserAgent(firefox, /Firefox/);
+  await firefox.exit();
 
-  const searchButton = await browser.find('[name="btnG"]');
-  await searchButton.click();
-});
-
-test.after.always(async () => {
-  await browser.exit();
+  const phantomjs = new Browser('phantomjs');
+  await assertUserAgent(phantomjs, /PhantomJS/);
+  await phantomjs.exit();
 });
