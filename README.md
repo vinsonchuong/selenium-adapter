@@ -59,6 +59,20 @@ run();
 ```
 Closes the browser and Selenium WebDriver client.
 
+##### Open
+```js
+import Browser from 'selenium-adapter';
+
+async function run() {
+  const browser = new Browser('chrome');
+  await browser.open('http://github.com');
+  await browser.exit();
+}
+run();
+```
+Instructs the browser to open a URL using
+[`WebDriver#get`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#get).
+
 ##### Evaluate
 ```js
 import Browser from 'selenium-adapter';
