@@ -89,6 +89,24 @@ Instructs the browser to evaluate a JavaScript function body using
 given as a string, within the context of the currently open page. The value
 returned by the function body is serialized and returned by this method.
 
+##### Find
+```js
+import Browser from 'selenium-adapter';
+
+async function run() {
+  const browser = new Browser('chrome');
+  await browser.open('http://github.com');
+  const header = await browser.find('.header');
+  console.log(header.textContent);
+}
+run();
+```
+Finds an element on the currently open page given a CSS selector using
+[`WebDriver#findElement`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#findElement).
+The object returned has a `textContent` attribute, which contains the text of
+the element and all descendant elements.
+
+
 ## Development
 ### Getting Started
 The application requires the following external dependencies:

@@ -16,4 +16,10 @@ export default class {
   async open(url) {
     await this.browser.get(url);
   }
+
+  async find(selector) {
+    const element = await this.browser.findElement(By.css(selector));
+    element.textContent = await element.getText();
+    return element;
+  }
 }

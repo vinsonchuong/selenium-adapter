@@ -4,7 +4,7 @@ import Directory from 'directory-helpers';
 import StaticServer from './helpers/StaticServer';
 import Browser from 'selenium-adapter';
 
-test('opens different browsers', async (t) => {
+test('opening different browsers', async (t) => {
   async function assertUserAgent(browser, regex) {
     t.regex(await browser.evaluate('return window.navigator.userAgent'), regex);
   }
@@ -22,25 +22,52 @@ test('opens different browsers', async (t) => {
   await phantomjs.exit();
 });
 
-test('opens a URL', async (t) => {
+test.serial('opening a URL', async (t) => {
   const directory = new Directory(tempfile());
   const server = new StaticServer(directory, 8080);
   const browser = new Browser('chrome');
 
   await directory.write({
     'index.html': `
-      <!doctype html>
-      <meta charset="utf-8">
-      <p>Hello World!</p>
+    <!doctype html>
+    <meta charset="utf-8">
+    <p>Hello World!</p>
     `
   });
-  await browser.open('http://localhost:8080');
-  const text = await browser.evaluate(`
-    return document.querySelector('p').textContent;
-  `);
-  t.is(text, 'Hello World!');
 
-  await browser.exit();
-  await server.exit();
-  await directory.remove();
+  try {
+    await browser.open('http://localhost:8080');
+    const text = await browser.evaluate(`
+      return document.querySelector('p').textContent;
+    `);
+    t.is(text, 'Hello World!');
+  } finally {
+    await browser.exit();
+    await server.exit();
+    await directory.remove();
+  }
+});
+
+test.serial('finding elements', async (t) => {
+  const directory = new Directory(tempfile());
+  const server = new StaticServer(directory, 8080);
+  const browser = new Browser('chrome');
+
+  await directory.write({
+    'index.html': `
+    <!doctype html>
+    <meta charset="utf-8">
+    <p>Hello World!</p>
+    `
+  });
+
+  try {
+    await browser.open('http://localhost:8080');
+    const paragraph = await browser.find('p');
+    t.is(paragraph.textContent, 'Hello World!');
+  } finally {
+    await browser.exit();
+    await server.exit();
+    await directory.remove();
+  }
 });
