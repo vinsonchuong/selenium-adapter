@@ -102,10 +102,28 @@ async function run() {
 run();
 ```
 Finds an element on the currently open page given a CSS selector using
-[`WebDriver#findElement`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#findElement).
-The object returned has a `textContent` attribute, which contains the text of
-the element and all descendant elements.
+[`WebDriver#findElement`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#findElement)
+and returns an instance of [Element](#element);
 
+#### Element
+A class that represents a snapshot of an element rendered in the page currently
+opened in the browser. It exposes data about the element and provides an
+interface for sending user actions to that element.
+
+##### TextContent
+```js
+import Browser from 'selenium-adapter';
+
+async function run() {
+  const browser = new Browser('chrome');
+  await browser.open('http://github.com');
+  const header = await browser.find('.header');
+  console.log(header.textContent);
+}
+run();
+```
+The inner text of the element. It is read using
+[`WebElement#getText`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#getText).
 
 ## Development
 ### Getting Started

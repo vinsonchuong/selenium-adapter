@@ -1,5 +1,12 @@
 import webdriver, {Builder, By, until} from 'selenium-webdriver';
 
+class Element {
+  constructor(element, metadata) {
+    this.element = element;
+    Object.assign(this, metadata);
+  }
+}
+
 export default class {
   constructor(browserName) {
     this.browser = new Builder().forBrowser(browserName).build(); 
@@ -19,7 +26,8 @@ export default class {
 
   async find(selector) {
     const element = await this.browser.findElement(By.css(selector));
-    element.textContent = await element.getText();
-    return element;
+    return new Element(element, {
+      textContent: await element.getText()
+    });
   }
 }
