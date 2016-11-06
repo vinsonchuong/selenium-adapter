@@ -25,14 +25,19 @@ export default class {
     await this.browser.get(url);
   }
 
-  async find(selector, {text} = {}) {
+  async find(selector, {text, wait = 1} = {}) {
     const xpath = typeof text === 'string' ?
       cssToXPath
         .parse(selector)
         .where(cssToXPath.xPathBuilder.text().contains(text))
         .toXPath() :
       cssToXPath(selector);
-    const element = await this.browser.findElement(By.xpath(xpath));
+
+    const element = await this.browser.wait(
+      until.elementLocated(By.xpath(xpath)),
+      wait
+    );
+
     return new Element(element, {
       textContent: await element.getText()
     });

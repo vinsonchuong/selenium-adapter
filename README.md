@@ -96,7 +96,10 @@ import Browser from 'selenium-adapter';
 async function run() {
   const browser = new Browser('chrome');
   await browser.open('http://github.com');
-  const header = await browser.find('.header', {text: 'Pull Requests'});
+  const header = await browser.find('.header', {
+    text: 'Pull Requests',
+    wait: 2000
+  });
   console.log(header.textContent);
 }
 run();
@@ -107,6 +110,12 @@ text substring using
 and
 [`By.xpath`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html#By.xpath)
 and returns an instance of [Element](#element);
+
+An optional number of milliseconds to `wait` can be provided. If provided, the
+browser will be polled for a matching element up to the wait time using
+[`WebDriver#wait`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#wait)
+and
+[`until.elementLocated`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html#elementLocated).
 
 #### Element
 A class that represents a snapshot of an element rendered in the page currently

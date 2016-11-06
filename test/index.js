@@ -59,6 +59,13 @@ test.serial('finding elements', async (t) => {
     <meta charset="utf-8">
     <p>Paragraph</p>
     <p class="paragraph">Paragraph With Class</p>
+    <script>
+      setTimeout(() => {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = 'Delayed Paragraph';
+        document.body.appendChild(paragraph);
+      }, 1000);
+    </script>
     `
   });
 
@@ -73,6 +80,12 @@ test.serial('finding elements', async (t) => {
 
     const paragraphByText = await browser.find('*', {text: 'Paragraph'});
     t.is(paragraphByText.textContent, 'Paragraph');
+
+    const delayedParagraph = await browser.find('p', {
+      text: 'Delayed Paragraph',
+      wait: 2000
+    });
+    t.is(delayedParagraph.textContent, 'Delayed Paragraph');
   } finally {
     await browser.exit();
     await server.exit();
