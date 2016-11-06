@@ -57,14 +57,22 @@ test.serial('finding elements', async (t) => {
     'index.html': `
     <!doctype html>
     <meta charset="utf-8">
-    <p>Hello World!</p>
+    <p>Paragraph</p>
+    <p class="paragraph">Paragraph With Class</p>
     `
   });
 
   try {
     await browser.open('http://localhost:8080');
+
     const paragraph = await browser.find('p');
-    t.is(paragraph.textContent, 'Hello World!');
+    t.is(paragraph.textContent, 'Paragraph');
+
+    const paragraphWithClass = await browser.find('.paragraph');
+    t.is(paragraphWithClass.textContent, 'Paragraph With Class');
+
+    const paragraphByText = await browser.find('*', {text: 'Paragraph'});
+    t.is(paragraphByText.textContent, 'Paragraph');
   } finally {
     await browser.exit();
     await server.exit();

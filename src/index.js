@@ -1,4 +1,5 @@
 import webdriver, {Builder, By, until} from 'selenium-webdriver';
+import cssToXPath from 'css-to-xpath';
 
 class Element {
   constructor(element, metadata) {
@@ -24,8 +25,14 @@ export default class {
     await this.browser.get(url);
   }
 
-  async find(selector) {
-    const element = await this.browser.findElement(By.css(selector));
+  async find(selector, {text} = {}) {
+    const xpath = typeof text === 'string' ?
+      cssToXPath
+        .parse(selector)
+        .where(cssToXPath.xPathBuilder.text().contains(text))
+        .toXPath() :
+      cssToXPath(selector);
+    const element = await this.browser.findElement(By.xpath(xpath));
     return new Element(element, {
       textContent: await element.getText()
     });

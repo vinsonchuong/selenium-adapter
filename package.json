@@ -34,6 +34,7 @@
     "babel-plugin-module-resolver": "^2.2.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-latest": "^6.16.0",
+    "css-to-xpath": "^0.1.0",
     "directory-helpers": "^0.1.8",
     "node-static": "^0.7.9",
     "tempfile": "^1.1.1"

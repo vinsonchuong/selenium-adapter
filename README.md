@@ -96,13 +96,16 @@ import Browser from 'selenium-adapter';
 async function run() {
   const browser = new Browser('chrome');
   await browser.open('http://github.com');
-  const header = await browser.find('.header');
+  const header = await browser.find('.header', {text: 'Pull Requests'});
   console.log(header.textContent);
 }
 run();
 ```
-Finds an element on the currently open page given a CSS selector using
+Finds an element on the currently open page given a CSS selector and optional
+text substring using
 [`WebDriver#findElement`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#findElement)
+and
+[`By.xpath`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html#By.xpath)
 and returns an instance of [Element](#element);
 
 #### Element
