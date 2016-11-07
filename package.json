@@ -18,7 +18,7 @@
     "url": "https://github.com/vinsonchuong/selenium-adapter"
   },
   "scripts": {
-    "test": "ava",
+    "test": "eslint src test && ava",
     "build": "bin/build"
   },
   "dependencies": {
@@ -31,13 +31,24 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.0",
     "babel-plugin-module-resolver": "^2.2.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-latest": "^6.16.0",
     "css-to-xpath": "^0.1.0",
     "directory-helpers": "^0.1.8",
+    "eslint": "^3.9.1",
     "node-static": "^0.7.9",
     "tempfile": "^1.1.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "browser": true,
+      "es6": true
+    }
   },
   "ava": {
     "babel": "inherit",

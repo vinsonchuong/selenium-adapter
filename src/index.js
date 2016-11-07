@@ -1,4 +1,4 @@
-import webdriver, {Builder, By, until} from 'selenium-webdriver';
+import {Builder, By, until} from 'selenium-webdriver';
 import cssToXPath from 'css-to-xpath';
 
 class Element {
