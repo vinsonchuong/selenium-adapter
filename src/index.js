@@ -6,6 +6,10 @@ class Element {
     this.element = element;
     Object.assign(this, metadata);
   }
+
+  async click() {
+    await this.element.click();
+  }
 }
 
 export default class {

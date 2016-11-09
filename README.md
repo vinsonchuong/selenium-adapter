@@ -137,6 +137,21 @@ run();
 The inner text of the element. It is read using
 [`WebElement#getText`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#getText).
 
+##### Click
+```js
+import Browser from 'selenium-adapter';
+
+async function run() {
+  const browser = new Browser('chrome');
+  await browser.open('http://github.com');
+  const pullRequests = await browser.find('a', {text: 'Pull requests'});
+  await pullRequests.click();
+}
+run();
+```
+Instructs Selenium to click on this element using
+[`WebElement#click`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#click).
+
 ## Development
 ### Getting Started
 The application requires the following external dependencies:

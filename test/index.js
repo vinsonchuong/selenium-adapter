@@ -92,3 +92,37 @@ test.serial('finding elements', async (t) => {
     await directory.remove();
   }
 });
+
+test.serial('clicking an element', async (t) => {
+  const directory = new Directory(tempfile());
+  const server = new StaticServer(directory, 8080);
+  const browser = new Browser('chrome');
+
+  await directory.write({
+    'index.html': `
+    <!doctype html>
+    <meta charset="utf-8">
+    <span id="text">Not Clicked</span>
+    <button id="button">Button</button>
+    <script>
+    window.button.addEventListener('click', () => {
+      window.text.textContent = 'Has Clicked';
+    });
+    </script>
+    `
+  });
+
+  try {
+    await browser.open('http://localhost:8080');
+
+    const button = await browser.find('#button');
+    await button.click();
+
+    const text = await browser.find('#text');
+    t.is(text.textContent, 'Has Clicked');
+  } finally {
+    await browser.exit();
+    await server.exit();
+    await directory.remove();
+  }
+});
