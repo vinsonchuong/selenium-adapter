@@ -10,6 +10,11 @@ class Element {
   async click() {
     await this.element.click();
   }
+
+  async fillIn(text) {
+    await this.element.click();
+    await this.element.sendKeys(text);
+  }
 }
 
 export default class {
@@ -43,7 +48,8 @@ export default class {
     );
 
     return new Element(element, {
-      textContent: await element.getText()
+      textContent: await element.getText(),
+      value: await element.getAttribute('value')
     });
   }
 }

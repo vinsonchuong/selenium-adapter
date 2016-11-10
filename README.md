@@ -137,6 +137,20 @@ run();
 The inner text of the element. It is read using
 [`WebElement#getText`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#getText).
 
+##### Value
+```js
+import Browser from 'selenium-adapter';
+
+async function run() {
+  const browser = new Browser('chrome');
+  await browser.open('http://github.com');
+  const searchBox = await browser.find('input[name="q"]');
+  console.log(searchBox.value);
+}
+run();
+```
+The value of the input element.
+
 ##### Click
 ```js
 import Browser from 'selenium-adapter';
@@ -151,6 +165,21 @@ run();
 ```
 Instructs Selenium to click on this element using
 [`WebElement#click`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#click).
+
+##### FillIn
+```js
+import Browser from 'selenium-adapter';
+
+async function run() {
+  const browser = new Browser('chrome');
+  await browser.open('http://github.com');
+  const searchBox = await browser.find('input[name="q"]');
+  await searchBox.fillIn('React');
+}
+run();
+```
+Instructs Selenium to type a string into this input element using
+[`WebElement#sendKeys`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#sendKeys).
 
 ## Development
 ### Getting Started

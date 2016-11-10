@@ -126,3 +126,36 @@ test.serial('clicking an element', async (t) => {
     await directory.remove();
   }
 });
+
+test.serial('filling in an input', async (t) => {
+  const directory = new Directory(tempfile());
+  const server = new StaticServer(directory, 8080);
+  const browser = new Browser('chrome');
+
+  await directory.write({
+    'index.html': `
+    <!doctype html>
+    <meta charset="utf-8">
+    <input value="Initial Value">
+    </script>
+    `
+  });
+
+  try {
+    await browser.open('http://localhost:8080');
+
+    let input;
+
+    input = await browser.find('input');
+    t.is(input.value, 'Initial Value');
+
+    await input.fillIn(' New Value');
+
+    input = await browser.find('input');
+    t.is(input.value, 'Initial Value New Value');
+  } finally {
+    await browser.exit();
+    await server.exit();
+    await directory.remove();
+  }
+});
