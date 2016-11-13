@@ -12,7 +12,6 @@ class Element {
   }
 
   async fillIn(text) {
-    await this.element.click();
     await this.element.sendKeys(text);
   }
 }
