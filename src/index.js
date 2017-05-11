@@ -1,6 +1,10 @@
 import {Builder, By, Key, until} from 'selenium-webdriver';
 import cssToXPath from 'css-to-xpath';
 
+function times(number, string) {
+  return new Array(number).fill(string);
+}
+
 class Element {
   constructor(element, metadata) {
     this.element = element;
@@ -12,7 +16,10 @@ class Element {
   }
 
   async fillIn(text) {
-    await this.element.sendKeys(text);
+    await this.element.sendKeys(
+      ...times(this.value.length, Key.BACK_SPACE),
+      text
+    );
   }
 }
 

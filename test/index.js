@@ -149,10 +149,10 @@ test.serial('filling in an input', async (t) => {
     input = await browser.find('input');
     t.is(input.value, 'Initial Value');
 
-    await input.fillIn(' New Value');
+    await input.fillIn('New Value');
 
     input = await browser.find('input');
-    t.is(input.value, 'Initial Value New Value');
+    t.is(input.value, 'New Value');
   } finally {
     await browser.exit();
     await server.exit();
