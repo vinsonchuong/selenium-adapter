@@ -11,69 +11,53 @@
   "bugs": "https://github.com/vinsonchuong/selenium-adapter/issues",
   "license": "MIT",
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
-  "main": "index.js",
+  "main": "src/index.js",
   "bin": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/vinsonchuong/selenium-adapter"
   },
   "scripts": {
-    "test": "eslint src test && ava",
-    "build": "bin/build"
+    "test": "standard --fix && flow && ava",
+    "build": "build-esm"
   },
   "dependencies": {
-    "babel-runtime": "^6.18.0",
-    "chromedriver": "^2.24.1",
-    "geckodriver": "^1.2.0",
-    "phantomjs-prebuilt": "^2.1.13",
-    "selenium-webdriver": "^3.0.0-beta-3"
+    "babel-runtime": "^6.23.0",
+    "chromedriver": "^2.29.0",
+    "css-to-xpath": "^0.1.0",
+    "geckodriver": "^1.6.1",
+    "phantomjs-prebuilt": "^2.1.14",
+    "selenium-webdriver": "^3.4.0"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
-    "babel-cli": "^6.18.0",
-    "babel-eslint": "^7.1.0",
-    "babel-plugin-module-resolver": "^2.2.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-latest": "^6.16.0",
-    "css-to-xpath": "^0.1.0",
+    "ava": "^0.19.1",
+    "babel-plugin-package-name-import": "^1.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "build-esm": "^2.0.0",
     "directory-helpers": "^0.1.8",
-    "eslint": "^3.9.1",
+    "flow-bin": "^0.46.0",
     "node-static": "^0.7.9",
-    "tempfile": "^1.1.1"
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "eslint:recommended",
-    "env": {
-      "node": true,
-      "browser": true,
-      "es6": true
-    }
-  },
-  "ava": {
-    "babel": "inherit",
-    "require": [
-      "babel-register"
-    ]
+    "standard-esnext": "^1.0.14",
+    "tempfile": "^2.0.0"
   },
   "babel": {
     "presets": [
-      "latest"
+      "env",
+      "flow"
     ],
     "plugins": [
       "transform-runtime",
-      [
-        "module-resolver",
-        {
-          "root": [
-            "./src",
-            "./test"
-          ],
-          "alias": {
-            "selenium-adapter": "./src"
-          }
-        }
-      ]
+      "package-name-import"
+    ]
+  },
+  "ava": {
+    "concurrency": 8,
+    "babel": "inherit",
+    "require": [
+      "babel-register"
     ]
   }
 }

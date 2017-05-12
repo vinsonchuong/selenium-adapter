@@ -180,18 +180,3 @@ run();
 ```
 Instructs Selenium to type a string into this input element using
 [`WebElement#sendKeys`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#sendKeys).
-
-## Development
-### Getting Started
-The application requires the following external dependencies:
-* Node.js
-
-The rest of the dependencies are handled through:
-```bash
-npm install
-```
-
-Run tests with:
-```bash
-npm test
-```
