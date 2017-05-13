@@ -8,6 +8,13 @@ A promise adapter for [Selenium WebDriver](http://www.seleniumhq.org/projects/we
 `selenium-adapter` is available as an
 [npm package](https://www.npmjs.com/package/selenium-adapter).
 
+### Dependencies
+ChromeDriver depends on the system libraries `libxi6` and `libgconf-2-4`, which
+need to be installed before installing `selenium-adapter`.
+
+Note that `selenium-adapter` is only tested against recent versions of Chrome
+and Firefox.
+
 ## Usage
 ```js
 import Browser from 'selenium-adapter';
