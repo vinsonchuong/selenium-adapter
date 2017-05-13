@@ -11,6 +11,11 @@
   "bugs": "https://github.com/vinsonchuong/selenium-adapter/issues",
   "license": "MIT",
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "src"
+  ],
   "main": "src/index.js",
   "bin": {},
   "repository": {
