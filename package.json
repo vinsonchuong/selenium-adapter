@@ -19,6 +19,7 @@
   },
   "scripts": {
     "test": "standard --fix && flow && ava",
+    "build": "build-esm",
     "prepublishOnly": "build-esm"
   },
   "dependencies": {
@@ -36,7 +37,7 @@
     "babel-preset-env": "^1.4.0",
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.24.1",
-    "build-esm": "^2.0.0",
+    "build-esm": "^2.0.2",
     "directory-helpers": "^0.1.8",
     "flow-bin": "^0.46.0",
     "node-static": "^0.7.9",
