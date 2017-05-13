@@ -5,6 +5,7 @@ node_js: node
 cache: yarn
 
 addons:
+  firefox: latest
   apt:
     packages:
       - google-chrome-stable
