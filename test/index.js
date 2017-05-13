@@ -4,28 +4,38 @@ import Directory from 'directory-helpers'
 import StaticServer from './helpers/StaticServer'
 import Browser from 'selenium-adapter'
 
-test('opening different browsers', async (t) => {
-  async function assertUserAgent (browser, regex) {
-    t.regex(await browser.evaluate('return window.navigator.userAgent'), regex)
-  }
+async function assertUserAgent (t, browser, regex) {
+  t.regex(await browser.evaluate('return window.navigator.userAgent'), regex)
+}
 
+test('opening Chrome', async (t) => {
   const chrome = new Browser('chrome')
-  await assertUserAgent(chrome, /Chrome/)
+  await assertUserAgent(t, chrome, /Chrome/)
   await chrome.exit()
+})
 
+test('opening Headless Chrome', async (t) => {
+  const headlessChrome = new Browser('headless-chrome')
+  await assertUserAgent(t, headlessChrome, /Chrome/)
+  await headlessChrome.exit()
+})
+
+test('opening Firefox', async (t) => {
   const firefox = new Browser('firefox')
-  await assertUserAgent(firefox, /Firefox/)
+  await assertUserAgent(t, firefox, /Firefox/)
   await firefox.exit()
+})
 
+test('opening PhantomJS', async (t) => {
   const phantomjs = new Browser('phantomjs')
-  await assertUserAgent(phantomjs, /PhantomJS/)
+  await assertUserAgent(t, phantomjs, /PhantomJS/)
   await phantomjs.exit()
 })
 
 test.serial('opening a URL', async (t) => {
   const directory = new Directory(tempfile())
   const server = new StaticServer(directory, 8080)
-  const browser = new Browser('chrome')
+  const browser = new Browser('headless-chrome')
 
   await directory.write({
     'index.html': `
@@ -51,7 +61,7 @@ test.serial('opening a URL', async (t) => {
 test.serial('finding elements', async (t) => {
   const directory = new Directory(tempfile())
   const server = new StaticServer(directory, 8080)
-  const browser = new Browser('chrome')
+  const browser = new Browser('headless-chrome')
 
   await directory.write({
     'index.html': `
@@ -96,7 +106,7 @@ test.serial('finding elements', async (t) => {
 test.serial('clicking an element', async (t) => {
   const directory = new Directory(tempfile())
   const server = new StaticServer(directory, 8080)
-  const browser = new Browser('chrome')
+  const browser = new Browser('headless-chrome')
 
   await directory.write({
     'index.html': `
@@ -130,7 +140,7 @@ test.serial('clicking an element', async (t) => {
 test.serial('filling in an input', async (t) => {
   const directory = new Directory(tempfile())
   const server = new StaticServer(directory, 8080)
-  const browser = new Browser('chrome')
+  const browser = new Browser('headless-chrome')
 
   await directory.write({
     'index.html': `

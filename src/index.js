@@ -1,4 +1,5 @@
 import {Builder, By, Key, until} from 'selenium-webdriver'
+import {Options as ChromeDriverOptions} from 'selenium-webdriver/chrome'
 import cssToXPath from 'css-to-xpath'
 
 function times (number, string) {
@@ -25,7 +26,16 @@ class Element {
 
 export default class {
   constructor (browserName) {
-    this.browser = new Builder().forBrowser(browserName).build()
+    if (browserName === 'headless-chrome') {
+      const options = new ChromeDriverOptions()
+        .addArguments('headless')
+      this.browser = new Builder().forBrowser('chrome')
+        .setChromeOptions(options)
+        .build()
+    } else {
+      this.browser = new Builder().forBrowser(browserName)
+        .build()
+    }
   }
 
   async exit () {

@@ -50,9 +50,9 @@ async function run() {
 run();
 ```
 Creates a Selenium WebDriver client and configures it to open the given browser.
-`chrome`, `firefox`, and `phantomjs` are support out-of-the-box as the
-`selenium-adapter` package depends on `chromedriver`, `geckodriver` and
-`phantomjs-prebuilt`.
+`chrome`, `headless-chrome`, `firefox`, and `phantomjs` are supported
+out-of-the-box as the `selenium-adapter` package depends on `chromedriver`,
+`geckodriver` and `phantomjs-prebuilt`.
 
 ##### Exit
 ```js
