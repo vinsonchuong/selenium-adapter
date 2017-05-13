@@ -4,6 +4,15 @@ language: node_js
 node_js: node
 cache: yarn
 
+addons:
+  apt:
+    packages:
+      - google-chrome-stable
+
+before_install:
+  - export DISPLAY=:99.0
+  - Xvfb :99 -screen 0 1280x800x24 &>/dev/null &
+
 deploy:
   provider: npm
   email:
