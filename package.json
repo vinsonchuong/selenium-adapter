@@ -1,6 +1,6 @@
 {
   "name": "selenium-adapter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A promise adapter for Selenium WebDriver for use with ES2017 async/await",
   "keywords": [
     "selenium",
