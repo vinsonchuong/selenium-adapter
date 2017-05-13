@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "standard --fix && flow && ava",
-    "build": "build-esm"
+    "prepublishOnly": "build-esm"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
