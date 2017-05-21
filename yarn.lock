@@ -957,7 +957,7 @@ babel-preset-latest@^6.16.0:
     babel-preset-es2016 "^6.24.1"
     babel-preset-es2017 "^6.24.1"
 
-babel-preset-stage-0@^6.16.0:
+babel-preset-stage-0@^6.16.0, babel-preset-stage-0@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-preset-stage-0/-/babel-preset-stage-0-6.24.1.tgz#5642d15042f91384d7e5af8bc88b1db95b039e6a"
   dependencies:
@@ -4008,9 +4008,9 @@ standard-engine@*:
     minimist "^1.1.0"
     pkg-conf "^2.0.0"
 
-standard-esnext@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/standard-esnext/-/standard-esnext-1.0.14.tgz#b6fefb285af90b18b81026a128e8b0c3c416fa99"
+standard-esnext@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/standard-esnext/-/standard-esnext-2.0.2.tgz#e63cfff43e95d66485592cb41bcd6b9ce0068519"
   dependencies:
     babel-core "*"
     babel-eslint "*"

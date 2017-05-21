@@ -41,17 +41,19 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.4.0",
     "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "build-esm": "^2.0.2",
     "directory-helpers": "^0.1.8",
     "flow-bin": "^0.46.0",
     "node-static": "^0.7.9",
-    "standard-esnext": "^1.0.14",
+    "standard-esnext": "^2.0.2",
     "tempfile": "^2.0.0"
   },
   "babel": {
     "presets": [
       "env",
+      "stage-0",
       "flow"
     ],
     "plugins": [

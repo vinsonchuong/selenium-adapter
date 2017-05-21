@@ -4,34 +4,6 @@ import Directory from 'directory-helpers'
 import StaticServer from './helpers/StaticServer'
 import Browser from 'selenium-adapter'
 
-async function assertUserAgent (t, browser, regex) {
-  t.regex(await browser.evaluate('return window.navigator.userAgent'), regex)
-}
-
-test('opening Chrome', async (t) => {
-  const chrome = new Browser('chrome')
-  await assertUserAgent(t, chrome, /Chrome/)
-  await chrome.exit()
-})
-
-test('opening Headless Chrome', async (t) => {
-  const headlessChrome = new Browser('headless-chrome')
-  await assertUserAgent(t, headlessChrome, /Chrome/)
-  await headlessChrome.exit()
-})
-
-test('opening Firefox', async (t) => {
-  const firefox = new Browser('firefox')
-  await assertUserAgent(t, firefox, /Firefox/)
-  await firefox.exit()
-})
-
-test('opening PhantomJS', async (t) => {
-  const phantomjs = new Browser('phantomjs')
-  await assertUserAgent(t, phantomjs, /PhantomJS/)
-  await phantomjs.exit()
-})
-
 test.serial('opening a URL', async (t) => {
   const directory = new Directory(tempfile())
   const server = new StaticServer(directory, 8080)
