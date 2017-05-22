@@ -1,5 +1,7 @@
 /* @flow */
 import test from 'ava'
+import * as path from 'path'
+import remove from 'selenium-adapter/src/pathtools/remove'
 import type {WebDriver} from 'selenium-adapter/src/webdriver/WebDriver'
 import {
   makeChromeAdapter,
@@ -9,7 +11,7 @@ import {
 } from 'selenium-adapter/src/makeAdapater'
 
 // Ensures that the following drivers are on the PATH
-process.env.PATH = ''
+remove(path.resolve('node_modules', '.bin'))
 
 test('opening Chrome via ChromeDriver', async (t) => {
   const driver = makeChromeAdapter()

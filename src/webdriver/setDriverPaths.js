@@ -1,17 +1,13 @@
 /* @flow */
 import * as path from 'path'
-import {path as phantomJSPath} from 'phantomjs-prebuilt'
+import {path as chromedriverPath} from 'chromedriver'
+import {path as geckodriverPath} from 'geckodriver'
+import {path as phantomPath} from 'phantomjs-prebuilt'
+import once from 'selenium-adapter/src/fntools/once'
+import prepend from 'selenium-adapter/src/pathtools/prepend'
 
-let pathsSet = false
-export default function (): void {
-  if (pathsSet) {
-    return
-  }
-  pathsSet = true
-
-  if (typeof process.env.PATH === 'string') {
-    require('chromedriver')
-    require('geckodriver')
-    process.env.PATH += `${path.delimiter}${path.dirname(phantomJSPath)}`
-  }
-}
+export default once((): void => {
+  prepend(path.dirname(chromedriverPath))
+  prepend(path.dirname(geckodriverPath))
+  prepend(path.dirname(phantomPath))
+})

@@ -23,7 +23,7 @@
     "url": "https://github.com/vinsonchuong/selenium-adapter"
   },
   "scripts": {
-    "test": "standard --fix && flow && ava",
+    "test": "standard -v --fix && flow && ava",
     "build": "build-esm",
     "prepublishOnly": "build-esm"
   },
@@ -39,7 +39,7 @@
     "ava": "^0.19.1",
     "babel-plugin-package-name-import": "^1.0.0",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
+    "babel-preset-env": "^1.5.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
