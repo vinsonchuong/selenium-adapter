@@ -228,3 +228,26 @@ run();
 ```
 
 Given an input element, clears its value and types in a new value.
+
+### Utilities
+
+#### `function waitFor<T> (time: number, getResult: () => Promise<T>): Promise<?T>`
+```js
+import {
+  makeHeadlessChromeAdapter,
+  navigate,
+  findElement,
+  waitFor
+} from 'selenium-adapter'
+
+async function run() {
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'http://localhost:8080')
+  const delayedButton = waitFor(2000, () => findElement(chrome, 'button'))
+}
+run();
+```
+
+Run the given function over and over until it returns a truthy value. If a
+truthy value is not returned within the given number of milliseconds, `null` is
+returned.
