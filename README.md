@@ -166,6 +166,10 @@ Finds the first element on the currently open page matching a CSS selector and
 optionally containing a string. If no matching element is found, `null` is
 returned.
 
+For the use case of finding an element that will exist after a delay (e.g. upon
+completion of an HTTP request), see
+[`waitFor`](#function-waitfort-time-number-getresult---promiset-promiset)
+
 ### Interacting With Elements
 
 #### `function getText (element: ?WebDriverElement): Promise<?string>`
