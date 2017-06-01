@@ -8,7 +8,7 @@ import {
   makeHeadlessChromeAdapter,
   makeFirefoxAdapter,
   makePhantomAdapter
-} from 'selenium-adapter/src/makeAdapater'
+} from 'selenium-adapter'
 
 // Ensures that the following drivers are on the PATH
 remove(path.resolve('node_modules', '.bin'))

@@ -57,7 +57,7 @@
       "flow"
     ],
     "plugins": [
-      "transform-runtime",
+      ["transform-runtime", {"polyfill": false}],
       "package-name-import"
     ]
   },

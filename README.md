@@ -17,173 +17,214 @@ and Firefox.
 
 ## Usage
 ```js
-import Browser from 'selenium-adapter';
+import {
+  makeHeadlessChromeAdapter,
+  close,
+  navigate,
+  findElement,
+  click,
+  fillIn,
+  getText
+} from 'selenium-adapter'
 
 async function run() {
-  const chrome = new Browser('chrome');
-  await chrome.open('https://www.google.com');
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://www.google.com')
 
-  const searchBox = await chrome.find('input[name="q"]');
-  await searchBox.fillIn('Hello World!')
+  const searchBox = await findElement(chrome, 'input[name="q"]')
+  await fillIn(searchBox, 'Hello World!')
 
-  const searchButton = await chrome.find('input[value="Search"]');
-  await searchButton.click();
+  const searchButton = await findElement(chrome, 'input[value="Search"]')
+  await click(searchButton)
 
-  const body = await chrome.find('body');
-  console.log(body.textContent);
+  const body = await findElement(chrome, 'body')
+
+  console.log(await getText(body))
 }
 run();
 ```
 
-### API Documentation
-#### Browser
-An Class that mediates communication with a Selenium WebDriver client and
-browser.
+### Choosing a Browser
 
-##### Constructor
+#### `function makeChromeAdapter(): WebDriver`
 ```js
-import Browser from 'selenium-adapter';
+import {makeChromeAdapter} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
+  const chrome = makeChromeAdapter()
 }
 run();
 ```
-Creates a Selenium WebDriver client and configures it to open the given browser.
-`chrome`, `headless-chrome`, `firefox`, and `phantomjs` are supported
-out-of-the-box as the `selenium-adapter` package depends on `chromedriver`,
-`geckodriver` and `phantomjs-prebuilt`.
 
-##### Exit
+Creates a Selenium
+[WebDriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_ThenableWebDriver.html)
+instance that controls a Chrome/Chromium browser via ChromeDriver.
+
+#### `function makeHeadlessChromeAdapter(): WebDriver`
 ```js
-import Browser from 'selenium-adapter';
+import {makeHeadlessChromeAdapter} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
-  await browser.exit();
+  const chrome = makeHeadlessChromeAdapter()
 }
 run();
 ```
+
+Creates a Selenium
+[WebDriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_ThenableWebDriver.html)
+instance that controls a Chrome/Chromium browser in headless mode via
+ChromeDriver.
+
+#### `function makeFirefoxAdapter(): WebDriver`
+```js
+import {makeFirefoxAdapter} from 'selenium-adapter'
+
+async function run() {
+  const firefox = makeFirefoxAdapter()
+}
+run();
+```
+Creates a Selenium
+[WebDriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_ThenableWebDriver.html)
+instance that controls a Firefox browser via GeckoDriver.
+
+#### `function makePhantomAdapter(): WebDriver`
+```js
+import {makePhantomAdapter} from 'selenium-adapter'
+
+async function run() {
+  const phantom = makePhantomAdapter()
+}
+run();
+```
+Creates a Selenium
+[WebDriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_ThenableWebDriver.html)
+instance that controls a PhantomJS browser.
+
+### Interacting With The Browser
+
+#### `function close(adapter: WebDriver): Promise<void>`
+```js
+import {makeHeadlessChromeAdapter, close} from 'selenium-adapter'
+
+async function run() {
+  const chrome = makeHeadlessChromeAdapter()
+  await close(chrome)
+}
+run();
+```
+
 Closes the browser and Selenium WebDriver client.
 
-##### Open
+#### `function navigate(adapter: WebDriver, url: string): Promise<void>`
 ```js
-import Browser from 'selenium-adapter';
+import {makeHeadlessChromeAdapter, navigate} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
-  await browser.open('http://github.com');
-  await browser.exit();
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://google.com')
 }
 run();
 ```
-Instructs the browser to open a URL using
-[`WebDriver#get`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#get).
 
-##### Evaluate
+Navigate to a given URL.
+
+#### `function evaluate<T> (adapter: WebDriver, fn: () => T): Promise<T>`
 ```js
-import Browser from 'selenium-adapter';
+import {makeHeadlessChromeAdapter, navigate, evaluate} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
-  console.log(await browser.evaluate('return window.navigator.userAgent'));
-  await browser.exit();
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://google.com')
+  console.log(await evaluate(chrome, () => document.title))
 }
 run();
 ```
-Instructs the browser to evaluate a JavaScript function body using
-[`WebDriver#executeScript`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#executeScript),
-given as a string, within the context of the currently open page. The value
-returned by the function body is serialized and returned by this method.
 
-##### Find
+Evaluate a JavaScript function within the context of the currently open page.
+The function's return value is serialized and returned. Note that the function
+will only have access to local variables defined inside of the function.
+
+#### `function findElement (adapter: WebDriver, selector: string, text: ?string): Promise<?WebDriverElement>`
 ```js
-import Browser from 'selenium-adapter';
+import {
+  makeHeadlessChromeAdapter,
+  navigate,
+  findElement
+} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
-  await browser.open('http://github.com');
-  const header = await browser.find('.header', {
-    text: 'Pull Requests',
-    wait: 2000
-  });
-  console.log(header.textContent);
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://www.npmjs.com')
+  const searchBox = await findElement(chrome, '[name="q"]')
+  const searchSubmit = await findElement(chrome, 'button', 'Search')
 }
 run();
 ```
-Finds an element on the currently open page given a CSS selector and optional
-text substring using
-[`WebDriver#findElement`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebDriver.html#findElement)
-and
-[`By.xpath`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html#By.xpath)
-and returns an instance of [Element](#element);
 
-An optional number of milliseconds to `wait` can be provided. If provided, the
-browser will be polled for a matching element up to the wait time using
-[`WebDriver#wait`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#wait)
-and
-[`until.elementLocated`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html#elementLocated).
+Finds the first element on the currently open page matching a CSS selector and
+optionally containing a string. If no matching element is found, `null` is
+returned.
 
-#### Element
-A class that represents a snapshot of an element rendered in the page currently
-opened in the browser. It exposes data about the element and provides an
-interface for sending user actions to that element.
+### Interacting With Elements
 
-##### TextContent
+#### `function getText (element: ?WebDriverElement): Promise<?string>`
 ```js
-import Browser from 'selenium-adapter';
+import {
+  makeHeadlessChromeAdapter,
+  navigate,
+  findElement,
+  getText
+} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
-  await browser.open('http://github.com');
-  const header = await browser.find('.header');
-  console.log(header.textContent);
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://www.npmjs.com')
+  const title = await findElement(chrome, 'h1')
+  console.log(await getText(title))
 }
 run();
 ```
-The inner text of the element. It is read using
-[`WebElement#getText`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#getText).
 
-##### Value
+Reads the text contained within an element.
+
+#### `function click (element: ?WebDriverElement): Promise<void>`
 ```js
-import Browser from 'selenium-adapter';
+import {
+  makeHeadlessChromeAdapter,
+  navigate,
+  findElement,
+  click
+} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
-  await browser.open('http://github.com');
-  const searchBox = await browser.find('input[name="q"]');
-  console.log(searchBox.value);
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://www.npmjs.com')
+  const signUp = await findElement(chrome, 'a', 'Sign up for npm')
+  await click(signUp)
 }
 run();
 ```
-The value of the input element.
 
-##### Click
+Clicks on a given element
+
+#### `function fillIn (element: ?WebDriverElement, value: string): Promise<void>`
 ```js
-import Browser from 'selenium-adapter';
+import {
+  makeHeadlessChromeAdapter,
+  navigate,
+  findElement,
+  fillIn
+} from 'selenium-adapter'
 
 async function run() {
-  const browser = new Browser('chrome');
-  await browser.open('http://github.com');
-  const pullRequests = await browser.find('a', {text: 'Pull requests'});
-  await pullRequests.click();
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://www.npmjs.com')
+  const searchBox = await findElement(chrome, '[name="q"]')
+  await fillIn(searchBox, 'A Query')
+  await fillIn(searchBox, 'A Different Query')
 }
 run();
 ```
-Instructs Selenium to click on this element using
-[`WebElement#click`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#click).
 
-##### FillIn
-```js
-import Browser from 'selenium-adapter';
-
-async function run() {
-  const browser = new Browser('chrome');
-  await browser.open('http://github.com');
-  const searchBox = await browser.find('input[name="q"]');
-  await searchBox.fillIn('React');
-}
-run();
-```
-Instructs Selenium to type a string into this input element using
-[`WebElement#sendKeys`](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html#sendKeys).
+Given an input element, clears its value and types in a new value.
