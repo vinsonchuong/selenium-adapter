@@ -23,7 +23,7 @@
     "url": "https://github.com/vinsonchuong/selenium-adapter"
   },
   "scripts": {
-    "test": "standard -v --fix && flow && ava",
+    "test": "bin/makeindex src/actions && standard -v --fix && flow && ava",
     "build": "build-esm",
     "prepublishOnly": "build-esm"
   },
