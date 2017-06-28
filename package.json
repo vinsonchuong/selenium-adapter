@@ -24,8 +24,7 @@
   },
   "scripts": {
     "test": "bin/makeindex src/actions && standard -v --fix && flow && ava",
-    "build": "build-esm",
-    "prepublishOnly": "build-esm"
+    "prepack": "build-esm"
   },
   "dependencies": {
     "chromedriver": "^2.30.1",
