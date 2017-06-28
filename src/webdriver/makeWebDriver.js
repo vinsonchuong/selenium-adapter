@@ -1,13 +1,13 @@
 /* @flow */
-import {Builder} from 'selenium-webdriver'
-import {Options as ChromeOptions} from 'selenium-webdriver/chrome'
+import { Builder } from 'selenium-webdriver'
+import { Options as ChromeOptions } from 'selenium-webdriver/chrome'
+import type { WebDriver } from './'
 import setDriverPaths from './setDriverPaths'
-import type {WebDriver} from './WebDriver'
 
-export type WebDriverBrowserName = 'chrome' | 'firefox' | 'phantomjs'
-export type Options = {[string]: string | boolean}
+type WebDriverBrowserName = 'chrome' | 'firefox' | 'phantomjs'
+type Options = { [string]: string | boolean }
 
-export default function (
+export default function(
   name: WebDriverBrowserName,
   options: Options = {}
 ): WebDriver {

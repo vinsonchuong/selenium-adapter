@@ -1,7 +1,7 @@
 /* @flow */
 import * as path from 'path'
 
-export default function (): Array<string> {
+export default function(): Array<string> {
   if (typeof process.env.PATH !== 'string') {
     return []
   }

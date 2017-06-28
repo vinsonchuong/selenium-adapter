@@ -16,8 +16,8 @@ import {
 injectAdapter()
 injectTmpDirectory()
 
-test('clicking on an element', async (t) => {
-  const {adapter, tmpDirectory} = t.context
+test('clicking on an element', async t => {
+  const { adapter, tmpDirectory } = t.context
   const fileUrls = await tmpDirectory.write({
     'index.html': `
     <!doctype html>
@@ -35,8 +35,8 @@ test('clicking on an element', async (t) => {
   t.is(await getText(status), 'Clicked')
 })
 
-test('filling in an input element', async (t) => {
-  const {adapter, tmpDirectory} = t.context
+test('filling in an input element', async t => {
+  const { adapter, tmpDirectory } = t.context
   const fileUrls = await tmpDirectory.write({
     'index.html': `
     <!doctype html>

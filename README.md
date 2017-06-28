@@ -129,6 +129,9 @@ run();
 
 Navigate to a given URL.
 
+In Chrome, if navigation fails due to a connection error or an HTTP status code
+in the 400s or 500s, an error will be raised.
+
 #### `function evaluate<T> (adapter: WebDriver, fn: () => T): Promise<T>`
 ```js
 import {makeHeadlessChromeAdapter, navigate, evaluate} from 'selenium-adapter'

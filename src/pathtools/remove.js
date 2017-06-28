@@ -2,7 +2,7 @@
 import getEntries from './getEntries'
 import setEntries from './setEntries'
 
-export default function (entry: string): void {
+export default function(entry: string): void {
   const currentEntries = getEntries()
   const index = currentEntries.indexOf(entry)
 
@@ -11,7 +11,6 @@ export default function (entry: string): void {
   }
 
   setEntries(
-    currentEntries.slice(0, index)
-      .concat(currentEntries.slice(index + 1))
+    currentEntries.slice(0, index).concat(currentEntries.slice(index + 1))
   )
 }

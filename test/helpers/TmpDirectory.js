@@ -2,16 +2,16 @@
 import Directory from 'directory-helpers'
 import tempfile from 'tempfile'
 
-type StringMap = {[string]: string}
+type StringMap = { [string]: string }
 
 export default class {
   directory: Directory
 
-  constructor () {
+  constructor() {
     this.directory = new Directory(tempfile())
   }
 
-  async write (files: StringMap): Promise<StringMap> {
+  async write(files: StringMap): Promise<StringMap> {
     await this.directory.write(files)
 
     const fileUrls = {}
@@ -21,7 +21,7 @@ export default class {
     return fileUrls
   }
 
-  remove (): Promise<void> {
+  remove(): Promise<void> {
     return this.directory.remove()
   }
 }

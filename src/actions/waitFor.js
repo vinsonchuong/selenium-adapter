@@ -1,6 +1,6 @@
 /* @flow */
 
-export default async function waitFor<T> (
+export default async function waitFor<T>(
   time: number,
   getResult: () => Promise<T>
 ): Promise<?T> {
@@ -15,7 +15,7 @@ export default async function waitFor<T> (
   return waitFor(time - 100, getResult)
 }
 
-function sleep (time: number): Promise<void> {
+function sleep(time: number): Promise<void> {
   return new Promise(resolve => {
     setTimeout(resolve, time)
   })
