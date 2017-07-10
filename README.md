@@ -175,6 +175,27 @@ completion of an HTTP request), see
 
 ### Interacting With Elements
 
+#### `function getAttribute (element: ?WebDriverElement): Promise<?string>`
+```js
+import {
+  makeHeadlessChromeAdapter,
+  navigate,
+  findElement,
+  getAttribute
+} from 'selenium-adapter'
+
+async function run() {
+  const chrome = makeHeadlessChromeAdapter()
+  await navigate(chrome, 'https://www.npmjs.com')
+  const searchBox = await findElement(chrome, 'input[name="q"]')
+  console.log(await getAttribute(searchBox, 'value'))
+  console.log(await getAttribute(searchBox, 'placeholder'))
+}
+run();
+```
+
+Reads an attribute, or if not present, a property by name for an element.
+
 #### `function getText (element: ?WebDriverElement): Promise<?string>`
 ```js
 import {

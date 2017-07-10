@@ -6,11 +6,11 @@ import {
 } from 'selenium-adapter/test/helpers/inject'
 import {
   navigate,
-  evaluate,
   findElement,
   click,
   fillIn,
-  getText
+  getText,
+  getAttribute
 } from 'selenium-adapter'
 
 injectAdapter()
@@ -49,8 +49,8 @@ test('filling in an input element', async t => {
   const input = await findElement(adapter, 'input')
 
   await fillIn(input, 'Hello')
-  t.is(await evaluate(adapter, () => window.input.value), 'Hello')
+  t.is(await getAttribute(input, 'value'), 'Hello')
 
   await fillIn(input, 'There')
-  t.is(await evaluate(adapter, () => window.input.value), 'There')
+  t.is(await getAttribute(input, 'value'), 'There')
 })
