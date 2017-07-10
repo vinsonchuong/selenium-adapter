@@ -148,7 +148,7 @@ Evaluate a JavaScript function within the context of the currently open page.
 The function's return value is serialized and returned. Note that the function
 will only have access to local variables defined inside of the function.
 
-#### `function findElement (adapter: WebDriver, selector: string, text: ?string): Promise<?WebDriverElement>`
+#### `function findElement (adapterOrElement: WebDriver | WebDriverElement, selector: string, text: ?string): Promise<?WebDriverElement>`
 ```js
 import {
   makeHeadlessChromeAdapter,
@@ -159,15 +159,17 @@ import {
 async function run() {
   const chrome = makeHeadlessChromeAdapter()
   await navigate(chrome, 'https://www.npmjs.com')
-  const searchBox = await findElement(chrome, '[name="q"]')
-  const searchSubmit = await findElement(chrome, 'button', 'Search')
+  const header = await findElement(chrome, 'header')
+  const searchBox = await findElement(header, '[name="q"]')
+  const searchSubmit = await findElement(header, 'button', 'Search')
 }
 run();
 ```
 
-Finds the first element on the currently open page matching a CSS selector and
-optionally containing a string. If no matching element is found, `null` is
-returned.
+Finds the first element matching a CSS selector and optionally containing a
+string. If no matching element is found, `null` is returned. If an adapter is
+given as first argument, the search is scoped to the entire page. If an element
+is given, the search is scoped to only descendants of that element.
 
 For the use case of finding an element that will exist after a delay (e.g. upon
 completion of an HTTP request), see

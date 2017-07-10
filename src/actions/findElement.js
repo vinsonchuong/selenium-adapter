@@ -7,10 +7,14 @@ import { By } from 'selenium-webdriver'
 import cssToXPath from 'css-to-xpath'
 
 export default async function(
-  adapter: WebDriver,
+  adapterOrElement: WebDriver | ?WebDriverElement,
   selector: string,
   text: ?string
 ): Promise<?WebDriverElement> {
+  if (!adapterOrElement) {
+    return null
+  }
+
   const xpath =
     typeof text === 'string'
       ? cssToXPath
@@ -18,6 +22,6 @@ export default async function(
           .where(cssToXPath.xPathBuilder.text().contains(text))
           .toXPath()
       : cssToXPath(selector)
-  const elements = await adapter.findElements(By.xpath(xpath))
+  const elements = await adapterOrElement.findElements(By.xpath(xpath))
   return elements[0]
 }

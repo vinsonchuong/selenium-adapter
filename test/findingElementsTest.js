@@ -51,6 +51,21 @@ test('finding an element by CSS selector and text', async t => {
   t.is(await getText(paragraph), 'Paragraph')
 })
 
+test('finding a descendant element', async t => {
+  const { adapter, tmpDirectory } = t.context
+  const fileUrls = await tmpDirectory.write({
+    'index.html': `
+    <!doctype html>
+    <meta charset="utf-8">
+    <p>Other <span>This one</span></p>
+    `
+  })
+  await navigate(adapter, fileUrls['index.html'])
+  const paragraph = await findElement(adapter, 'p', 'Other')
+  const span = await findElement(paragraph, 'span', 'This one')
+  t.is(await getText(span), 'This one')
+})
+
 test('waiting for an element to exist', async t => {
   const { adapter, tmpDirectory } = t.context
   const fileUrls = await tmpDirectory.write({
