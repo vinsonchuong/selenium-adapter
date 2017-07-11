@@ -148,7 +148,7 @@ Evaluate a JavaScript function within the context of the currently open page.
 The function's return value is serialized and returned. Note that the function
 will only have access to local variables defined inside of the function.
 
-#### `function findElement (adapterOrElement: WebDriver | WebDriverElement, selector: string, text: ?string): Promise<?WebDriverElement>`
+#### `function findElement (adapterOrElement: WebDriver | ?WebDriverElement, selector: string, text: ?string): Promise<?WebDriverElement>`
 ```js
 import {
   makeHeadlessChromeAdapter,
