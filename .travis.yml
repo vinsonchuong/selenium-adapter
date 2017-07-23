@@ -6,9 +6,7 @@ cache: yarn
 
 addons:
   firefox: latest
-  apt:
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 before_install:
   - export DISPLAY=:99.0
