@@ -11,7 +11,10 @@ export default async function(
   adapter: WebDriver,
   filter: Log => boolean = () => true
 ): Promise<Array<Log>> {
-  const webDriverLogEntries = await adapter.manage().logs().get(Type.BROWSER)
+  const webDriverLogEntries = await adapter
+    .manage()
+    .logs()
+    .get(Type.BROWSER)
   return webDriverLogEntries
     .map(logEntry => parseLogEntry(logEntry))
     .filter(Boolean)
