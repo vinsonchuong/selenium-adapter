@@ -2,7 +2,7 @@
 import test from 'ava'
 import { makeHeadlessChromeAdapter, close, navigate } from 'selenium-adapter'
 
-test.beforeEach(async t => {
+test.beforeEach(t => {
   t.context.chrome = makeHeadlessChromeAdapter()
 })
 

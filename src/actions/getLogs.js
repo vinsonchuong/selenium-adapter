@@ -1,9 +1,6 @@
 /* @flow */
 import { Type } from 'selenium-webdriver/lib/logging'
-import type {
-  WebDriver,
-  WebDriverLogEntry
-} from 'selenium-adapter/src/webdriver'
+import type { WebDriver } from 'selenium-adapter/src/webdriver'
 import type { Log } from 'selenium-adapter/src/logs'
 import logParsers from 'selenium-adapter/src/logs'
 
@@ -15,17 +12,15 @@ export default async function(
     .manage()
     .logs()
     .get(Type.BROWSER)
-  return webDriverLogEntries
-    .map(logEntry => parseLogEntry(logEntry))
-    .filter(Boolean)
-    .filter(filter)
-}
 
-function parseLogEntry(logEntry: WebDriverLogEntry): ?Log {
-  for (const parseLog of logParsers) {
-    const log = parseLog(logEntry)
-    if (log) {
-      return log
+  const logs = []
+  for (const logEntry of webDriverLogEntries) {
+    for (const parseLog of logParsers) {
+      const log = parseLog(logEntry)
+      if (log) {
+        logs.push(log)
+      }
     }
   }
+  return logs
 }
