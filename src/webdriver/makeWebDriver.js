@@ -4,7 +4,7 @@ import { Options as ChromeOptions } from 'selenium-webdriver/chrome'
 import type { WebDriver } from './'
 import setDriverPaths from './setDriverPaths'
 
-type WebDriverBrowserName = 'chrome' | 'firefox' | 'phantomjs'
+type WebDriverBrowserName = 'chrome' | 'firefox'
 type Options = { [string]: string | boolean }
 
 export default function(

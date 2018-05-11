@@ -6,8 +6,7 @@ import type { WebDriver } from 'selenium-adapter/src/webdriver'
 import {
   makeChromeAdapter,
   makeHeadlessChromeAdapter,
-  makeFirefoxAdapter,
-  makePhantomAdapter
+  makeFirefoxAdapter
 } from 'selenium-adapter'
 
 // Ensures that the following drivers are on the PATH
@@ -28,12 +27,6 @@ test('opening Headless Chrome via ChromeDriver', async t => {
 test('opening Firefox via GeckoDriver', async t => {
   const driver = makeFirefoxAdapter()
   t.regex(await getUserAgent(driver), /Firefox/)
-  await driver.quit()
-})
-
-test('opening PhantomJS', async t => {
-  const driver = makePhantomAdapter()
-  t.regex(await getUserAgent(driver), /PhantomJS/)
   await driver.quit()
 })
 

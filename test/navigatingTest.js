@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable ava/no-skip-test */
 import test from 'ava'
 import { makeHeadlessChromeAdapter, close, navigate } from 'selenium-adapter'
 
@@ -10,7 +11,7 @@ test.afterEach.always(async t => {
   await close(t.context.chrome)
 })
 
-test('raising an error on 404', async t => {
+test.skip('raising an error on 404', async t => {
   const { chrome } = t.context
   await t.throws(navigate(chrome, 'http://httpstat.us/404'), 'Not Found')
   await t.throws(

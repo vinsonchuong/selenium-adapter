@@ -13,7 +13,3 @@ export function makeHeadlessChromeAdapter(): WebDriver {
 export function makeFirefoxAdapter(): WebDriver {
   return makeWebDriver('firefox', {})
 }
-
-export function makePhantomAdapter(): WebDriver {
-  return makeWebDriver('phantomjs', {})
-}
