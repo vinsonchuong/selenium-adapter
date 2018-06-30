@@ -5,7 +5,7 @@ cache: yarn
 
 addons:
   firefox: latest
-  chrome: stable
+  chrome: beta
 
 before_install:
   - export DISPLAY=:99.0
