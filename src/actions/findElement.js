@@ -19,7 +19,7 @@ export default async function(
     typeof text === 'string'
       ? cssToXPath
           .parse(selector)
-          .where(cssToXPath.xPathBuilder.text().contains(text))
+          .where(cssToXPath.xPathBuilder.contains(text))
           .toXPath()
       : cssToXPath(selector)
   const elements = await adapterOrElement.findElements(By.xpath(xpath))

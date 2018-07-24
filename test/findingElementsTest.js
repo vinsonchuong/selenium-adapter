@@ -43,7 +43,7 @@ test('finding an element by CSS selector and text', async t => {
     <!doctype html>
     <meta charset="utf-8">
     <p>Other</p>
-    <p>Paragraph</p>
+    <p><span>Paragraph</span></p>
     `
   })
   await navigate(adapter, fileUrls['index.html'])
